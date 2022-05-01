@@ -1,1 +1,1 @@
-This is my first time using LUA
+This is my first time using LUA for the Minecraft-Mod ComputerCraft 
