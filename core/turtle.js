@@ -2,13 +2,21 @@
 const OPcodes = {
     //assinging values to constants
     FORWARD: '0001',
-    RIGHT: '0002',
-    BACK: '0003',
-    LEFT: '0004',
-    INSPECT: '0005',
-    PURPLE: '0006',
-    ORANGE: '0007',
-    NAVY: '0008'
+    TURNRIGHT: '0002',
+    TURNLEFT: '0003',
+    BACK: '0004',
+    UP: '0005',
+    DOWN: '0006',
+    INSPECT: '0007',
+    CRAFT: '0008',
+    SELECT: '0009',
+    GETITEMCOUNT: '0010',
+    GETITEMSPACE: '0011',
+    GETITEMDETAIL: '0012',
+    EQUIPLEFT: '0013',
+    DIG: '0014',
+    DIGUP: '0015',
+    DIGDOWN: '0016',
     };
 
 class Turtle {
