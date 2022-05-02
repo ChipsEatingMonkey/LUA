@@ -5,18 +5,23 @@ const wss = new WebS.Server({port:8081})
 
 wss.on("connection",ws=>{
     console.log("connection!")
+    console.log(" ws url is: ");
+    console.log(ws.url);
     ws.on("message",msg=>{
-        let stringFromData = msg.toString();
+
+        let rawData = msg.toString();
         let OPcode = msg.slice(0,4);
-        msg = msg.slice(4);
-        if (stringFromData.startsWith("0")){
-            wss.broadcast(JSON.stringify({peter:msg.toString()}))
-            console.log(JSON.stringify({peter:msg.toString()}));
-            console.log("Frontend: "+ stringFromData);
+        OPcode = OPcode.toString();
+
+        if (OPcode.startsWith("0")){
+            let remoteFunctionCall = msg.slice(4);
+            remoteFunctionCall = remoteFunctionCall.toString();
+            wss.broadcast(JSON.stringify({peter:remoteFunctionCall}))
+            console.log("Frontend: "+ remoteFunctionCall);
         }
         else {
             console.log("Turtle: ")
-            console.log(stringFromData)
+            console.log(rawData)
         }
     })
 

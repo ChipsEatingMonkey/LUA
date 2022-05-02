@@ -1,6 +1,6 @@
 
 const OPcodes = {
-    //assinging values to constants
+    //all turtle OPcodes start with 0
     FORWARD: '0001',
     TURNRIGHT: '0002',
     TURNLEFT: '0003',

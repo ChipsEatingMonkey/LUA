@@ -46,9 +46,47 @@ function turnRight(){
     ws.send(OPcodes.TURNRIGHT + "return turtle.turnRight()")
 }
 function turnLeft(){
-    ws.send(OPcodes.TURNLEFT + "return turtle.inspect()")
+    ws.send(OPcodes.TURNLEFT + "return turtle.turnLeft()")
 }
-
+function back(){
+    ws.send(OPcodes.BACK + "return turtle.back()")
+}
+function up(){
+    ws.send(OPcodes.UP + "return turtle.up()" )
+}
+function down(){
+    ws.send(OPcodes.DOWN + "return turtle.down()")
+}
+function inspect(){
+    ws.send(OPcodes.INSPECT + "return turtle.inspect()")
+}
+function craft(){
+    ws.send(OPcodes.CRAFT + "return turtle.craft()")
+}
+function select(){
+    ws.send(OPcodes.SELECT + "return turtle.select()")
+}
+function getItemCount(){
+    ws.send(OPcodes.GETITEMCOUNT + "return turtle.getItemCount()")
+}
+function getItemSpace(){
+    ws.send(OPcodes.GETITEMSPACE + "return turtle.getItemSpace()")
+}
+function getItemDetail(){
+    ws.send(OPcodes.GETITEMDETAIL + "return turtle.getItemDetail()")
+}
+function equipLeft(){
+    ws.send(OPcodes.EQUIPLEFT + "return turtle.equipLeft()")
+}
+function dig(){
+    ws.send(OPcodes.DIG + "return turtle.dig()")
+}
+function digUp(){
+    ws.send(OPcodes.DIGUP + "return turtle.digUp()")
+}
+function digDown(){
+    ws.send(OPcodes.DIGDOWN + " return turtle.digDown()")
+}
 
 
 ws.addEventListener("message",msg=>{
