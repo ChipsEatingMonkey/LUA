@@ -2,7 +2,7 @@ import { OPcodes } from '../../core/turtle.js'
 console.log(OPcodes)
 
 
-const ws = new WebSocket("ws://localhost:8081")
+const ws = new WebSocket("ws://localhost:8081?uid=9999")
 
 const forwardButton = document.getElementById("forward");
 const turnRightButton = document.getElementById("turnRight");
@@ -20,6 +20,7 @@ const equipLeftButton = document.getElementById("equipLeft");
 const digButton = document.getElementById("dig");
 const digUpButton = document.getElementById("digUp");
 const digDownButton = document.getElementById("digDown");
+const doubleLeftButton = document.getElementById("180");
 
 forwardButton.onclick = forward;
 turnRightButton.onclick = turnRight;
@@ -37,6 +38,7 @@ equipLeftButton.onclick = equipLeft;
 digButton.onclick = dig;
 digUpButton.onclick = digUp;
 digDownButton.onclick = digDown;
+doubleLeftButton.onclick = doubleLeft;
 
 
 function forward(){
@@ -86,6 +88,10 @@ function digUp(){
 }
 function digDown(){
     ws.send(OPcodes.DIGDOWN + " return turtle.digDown()")
+}
+function doubleLeft(){
+    ws.send(OPcodes.TURNLEFT + "return turtle.turnLeft()")
+    ws.send(OPcodes.TURNLEFT + "return turtle.turnLeft()")
 }
 
 

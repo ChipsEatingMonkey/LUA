@@ -1,18 +1,24 @@
 os.loadAPI("json")
-local ws,err = http.websocket("ws://localhost:8081")
+local name = os.getComputerID()
+local ws,err = http.websocket("ws://localhost:8081?uid=0" .. name)
 if ws then
+    local counter = 1
     while (true)
-    do
+    do  
+        print(counter)
+        counter = counter + 1
         local msg = ws.receive()
         local object = json.decode(msg)
-        local func = loadstring(object["peter"])
-        local res,data = func{}
+        local func = loadstring(object["rfc"])
+        local res,data = func()
+        res = tostring(res)
         if data then
-            ws.send(data, false)
-            end
+            ws.send({res, data}, false)
+        else
+            ws.send(res, false)
+        end
     end
 else
-    print("no ws")
+    print("no Websocket found")
 end
-print(ws)
-print(err)    
+  
