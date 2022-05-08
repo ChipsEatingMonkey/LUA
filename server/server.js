@@ -2,7 +2,6 @@ const {Turtle , OPcodes} = require('../core/turtle.js');
 
 const WebS = require("ws")
 const url = require("url");
-const { fstat } = require('fs');
 const wss = new WebS.Server({port:8081})
 wss.on("connection", function connection(ws, req){
 
@@ -20,7 +19,7 @@ wss.on("connection", function connection(ws, req){
         let rawData = msg.toString();
         let OPcode = msg.slice(0,4);
         OPcode = OPcode.toString();
-        
+
         if (ws.msgQueue.length != 0){
             wss.broadcast(ws.uid, ws.msgQueue[0]);
             ws.msgQueue.shift();

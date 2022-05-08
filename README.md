@@ -17,3 +17,6 @@ pastebin turtlePrograms/startup.lua on the turtle
 turn it off and on again
 
 profit
+
+TO DO: 
+    - Filebased Database for Turtles
