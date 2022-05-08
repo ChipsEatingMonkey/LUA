@@ -4,6 +4,8 @@ const url = require("url");
 const fs = require("fs");
 
 const wss = new WebS.Server({port:8081})
+
+let turtleList = [];
 wss.on("connection", function connection(ws, req){
 
     const parameters = url.parse(req.url, true);
@@ -31,7 +33,7 @@ wss.on("connection", function connection(ws, req){
         if (OPcode.startsWith("0")){
             let remoteFunctionCall = msg.slice(4);
             remoteFunctionCall = remoteFunctionCall.toString();
-            wss.broadcast("04", JSON.stringify({rfc:remoteFunctionCall}))
+            wss.broadcast(ws.uid, JSON.stringify({rfc:remoteFunctionCall}))
            
             console.log("Frontend: "+ remoteFunctionCall);
         }
