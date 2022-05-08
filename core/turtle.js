@@ -21,8 +21,8 @@ const OPcodes = {
 
 class Turtle {
     
-    constructor(name, pos, fuelLevel) {
-      this.name = name;
+    constructor(uid, pos, fuelLevel) {
+      this.uid = uid;
       this.pos = pos;
       this.fuelLevel = fuelLevel;
     }
