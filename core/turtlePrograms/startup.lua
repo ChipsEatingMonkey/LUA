@@ -1,6 +1,7 @@
 os.loadAPI("json")
 local name = os.getComputerID()
-local ws,err = http.websocket("ws://localhost:8081?uid=0" .. name)
+local fuelLevel = turtle.getFuelLevel()
+local ws,err = http.websocket("ws://localhost:8081?uid=0" .. name .. "&fuelLevel=" .. fuelLevel)
 if ws then
     local counter = 1
     while (true)

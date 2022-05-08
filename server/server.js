@@ -1,15 +1,18 @@
 const {Turtle , OPcodes} = require('../core/turtle.js');
-
-const WebS = require("ws")
+const WebS = require("ws");
 const url = require("url");
+const fs = require("fs");
+
 const wss = new WebS.Server({port:8081})
 wss.on("connection", function connection(ws, req){
 
-    //https://myhost:8081?isFrontend=true&uid=9999
     const parameters = url.parse(req.url, true);
     ws.uid = parameters.query.uid; // THIS IS A STRING 
-    // ws.isFrontend = parameters.query.isFrontend;
     console.log("connection with: " + ws.uid);
+    if (ws.uid.startsWith("0"))  { // this means it's a turtle
+        ws.fuelLevel = parseInt(parameters.query.fuelLevel); 
+        console.log("its fuelLevel is: " + ws.fuelLevel);
+    }
     ws.isBusy = false;
     ws.msgQueue = [];
 
@@ -37,6 +40,9 @@ wss.on("connection", function connection(ws, req){
             console.log(rawData)
         }
     })
+    ws.onclose = function (event) {
+        console.log(" The connection with " + ws.uid + " has been closed");
+      };
 
 });
 

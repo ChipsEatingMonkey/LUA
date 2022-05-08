@@ -42,7 +42,7 @@ doubleLeftButton.onclick = doubleLeft;
 
 
 function forward(){
-    ws.send(OPcodes.FORWARD + "turtle.forward();turtle.forward();turtle.forward();turtle.forward();turtle.forward();turtle.forward();turtle.forward();turtle.forward();turtle.forward();turtle.forward();return turtle.forward()")
+    ws.send(OPcodes.FORWARD + "return turtle.forward()")
 }
 function turnRight(){
     ws.send(OPcodes.TURNRIGHT + "return turtle.turnRight()")
