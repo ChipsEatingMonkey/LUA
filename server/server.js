@@ -6,6 +6,7 @@ const fs = require("fs");
 const wss = new WebS.Server({port:8081})
 
 let turtleList = [];
+//let world = fs.readFileSync('world.json');
 wss.on("connection", function connection(ws, req){
 
     const parameters = url.parse(req.url, true);
@@ -35,7 +36,7 @@ wss.on("connection", function connection(ws, req){
         if (OPcode.startsWith("0")){
             let remoteFunctionCall = msg.slice(4);
             remoteFunctionCall = remoteFunctionCall.toString();
-            wss.broadcast(ws.uid , JSON.stringify({rfc:remoteFunctionCall}))
+            wss.broadcast(turtleList[0].uid , JSON.stringify({rfc:remoteFunctionCall}))
            
             console.log("Frontend: "+ remoteFunctionCall);
         }
@@ -61,6 +62,7 @@ wss.on("connection", function connection(ws, req){
 
 wss.broadcast = function broadcast(clientID, msg){
     wss.clients.forEach(function each(client) {
+
         if (clientID == client.uid){
             if (client.isBusy){
                 console.log("client is busy - adding msg to queue")
@@ -68,9 +70,10 @@ wss.broadcast = function broadcast(clientID, msg){
             }
             else {
                 client.isBusy = true;
+                console.log("msg was send")
                 client.send(msg);
             }
-            return
         }
     });
+    console.log("can't find client")
 };

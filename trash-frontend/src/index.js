@@ -1,5 +1,4 @@
 import { OPcodes } from '../../core/turtle.js'
-console.log(OPcodes)
 
 
 const ws = new WebSocket("ws://localhost:8081?uid=9999")
