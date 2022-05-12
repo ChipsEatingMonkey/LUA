@@ -1,3 +1,4 @@
+shell.run("pastebin", "get", "4nRg9CHU", "json");
 os.loadAPI("json")
 local name = os.getComputerID()
 local fuelLevel = turtle.getFuelLevel()
@@ -16,7 +17,7 @@ if ws then
         if data then
             ws.send({res, data}, false)
         else
-            ws.send(res, false)
+            ws.send({res}, false)
         end
     end
 else

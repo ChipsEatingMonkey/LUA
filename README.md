@@ -12,7 +12,7 @@ npm start
 
 open Minecraft with CC:Tweaked MOD
 build turtle
-pastebin turtlePrograms/startup.lua on the turtle 
+pastebin turtlePrograms/startup.lua on the turtle (current is: pastebin get EqpDQ0yt startup.lua )
 
 turn it off and on again
 

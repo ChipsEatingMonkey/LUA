@@ -72,6 +72,7 @@ wss.broadcast = function broadcast(clientID, msg){
                 client.isBusy = true;
                 console.log("msg was send")
                 client.send(msg);
+                return
             }
         }
     });

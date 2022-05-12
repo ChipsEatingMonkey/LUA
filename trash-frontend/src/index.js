@@ -89,7 +89,7 @@ function digDown(){
     ws.send(OPcodes.DIGDOWN + " return turtle.digDown()")
 }
 function doubleLeft(){
-    ws.send(OPcodes.TURNLEFT + "turtle.turnLeft(); return turtle.turnLeft();")
+    ws.send(OPcodes.TURNLEFT + "return turtle.getItemDetail()")
 }
 
 
