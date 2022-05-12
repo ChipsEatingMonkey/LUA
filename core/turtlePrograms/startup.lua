@@ -13,11 +13,10 @@ if ws then
         local object = json.decode(msg)
         local func = loadstring(object["rfc"])
         local res,data = func()
-        res = tostring(res)
         if data then
-            ws.send({res, data}, false)
+            ws.send({res, data})
         else
-            ws.send({res}, false)
+            ws.send({res})
         end
     end
 else

@@ -1,0 +1,6 @@
+
+grobe Architektur:
+    frontend connected als client ueber den websocket zum Server
+    turtle connecten als clients ueber den websocket zum Server
+    
+    frontend schickt instruction durch OPCODE durch server an turtles (momentan an nur eine)

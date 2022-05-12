@@ -15,7 +15,8 @@ wss.on("connection", function connection(ws, req){
     if (ws.uid.startsWith("0"))  { // this means it's a turtle
         ws.fuelLevel = parseInt(parameters.query.fuelLevel); 
         console.log("its fuelLevel is: " + ws.fuelLevel);
-        turtleList.push(new Turtle(ws.uid,[0,0,0], ws.fuelLevel)) // could 2 websockets try 2 change this at the same time? Might crash
+        // check for tutle on database / memory first
+        turtleList.push(new Turtle(ws.uid,[-364, 69, -147], ws.fuelLevel)) // could 2 websockets try 2 change this at the same time? Might crash
         console.log(turtleList)
     }
     ws.isBusy = false;
@@ -24,6 +25,7 @@ wss.on("connection", function connection(ws, req){
     ws.on("message", function (msg){
 
         ws.isBusy = false;
+        let msg_c = msg;
         let rawData = msg.toString();
         let OPcode = msg.slice(0,4);
         OPcode = OPcode.toString();
@@ -41,7 +43,9 @@ wss.on("connection", function connection(ws, req){
             console.log("Frontend: "+ remoteFunctionCall);
         }
         else {
+            // -364, 69, -147
             console.log(ws.uid)
+            console.log(rawData.slice(15,40))
             console.log(rawData)
         }
     })
@@ -51,6 +55,7 @@ wss.on("connection", function connection(ws, req){
     ws.onclose = function (event) {
         if (ws.uid.startsWith("0"))  {
             console.log(" The connection with " + ws.uid + " has been closed");
+            // save data to file/database
             turtleList = turtleList.filter(notTurtle);
             console.log(turtleList);
         };

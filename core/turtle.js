@@ -23,17 +23,95 @@ class Turtle {
     
     constructor(uid, pos, fuelLevel) {
       this.uid = uid;
-      this.pos = pos;
+      this.pos = pos; // x,y,z
+      this.dir = [1,0]; // [x,y] [1,0] is looking in x, [0,1] in y, [-1,0] in -x and [0,1] in -y
+      this.dirCode = 0; // 0 , 1 , 2 , 3
       this.fuelLevel = fuelLevel;
     }
-    updateTurtle(turtleResponse){ // takes string the turtle returns to server and parse it 
-
+    updateTurtle(OPcode){ // takes opcode to update turtle variables 
+        switch (OPcode){
+            case OPcodes.FORWARD:
+                this.forward();
+                break;
+            case OPcodes.TURNRIGHT:
+                this.turnRight();
+                break;
+            case OPcodes.TURNLEFT:
+                this.turnLeft();
+                break;
+            case OPcodes.BACK:
+                this.back();
+                break;
+            case OPcodes.UP:
+                this.up();
+                break;
+            case OPcodes.DOWN:
+                this.down();
+                break;
+        }
     }
     
-    updatePos(x, y, z){
-        this.pos[0] += x;
-        this.pos[1] += y;
-        this.pos[2] += z;
+    turnRight(){
+        switch(this.dirCode){  // 0->1->2->3 [1,0]->[0,1]->[-1,0]->[0,-1]->[1,0]
+            case 0:
+                this.dir = [0,1];
+                this.dirCode = 1;
+                break;
+            case 1:
+                this.dir = [-1,0];
+                this.dirCode = 2;
+                break;
+            case 2:
+                this.dir = [0,-1];
+                this.dirCode = 3;
+                break;
+            case 3:
+                this.dir = [1,0];
+                this.dirCode = 0;
+                break;
+            default:
+                console.log("You broke the Matrix NEO");
+        }
+    }
+    turnLeft(){
+        switch(this.dirCode){ //[1,0]<-[0,1]<-[-1,0]<-[0,-1]<-[1,0] 0<-1<-2<-3
+            case 0:
+                this.dir = [0,-1];
+                this.dirCode = 3;
+                break;
+            case 3:
+                this.dir = [-1,0];
+                this.dirCode = 2;
+                break;
+            case 2:
+                this.dir = [0,1];
+                this.dirCode = 1;
+                break;
+            case 1:
+                this.dir = [1,0];
+                this.dirCode = 0;
+                break;
+            default:
+                console.log("You broke the Matrix NEO");
+        }
+    }
+    forward(){
+        this.pos[0] += this.dir[0]
+        this.pos[2] += this.dir[1]
+        console.log(" turtle pos now: ", this.pos)
+    }
+    back(){
+        this.pos[0] -= this.dir[0]
+        this.pos[2] -= this.dir[1]
+        console.log(" turtle pos now: ", this.pos)
+    }
+    up(){
+        this.pos[1] += 1
+        console.log(" turtle pos now: ", this.pos)
+    }
+    down(){
+        this.pos[1] -= 1
+        console.log(" turtle pos now: ", this.pos)
     }
   }
 
