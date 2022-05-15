@@ -12,11 +12,14 @@ npm start
 
 open Minecraft with CC:Tweaked MOD
 build turtle
-pastebin turtlePrograms/startup.lua on the turtle (current is: pastebin get snq44bBZ startup.lua )
+pastebin turtlePrograms/startup.lua on the turtle (current is: pastebin get FeW6Q1sd startup.lua )
 
 turn it off and on again
 
 profit
 
 TO DO: 
-    - Filebased Database for Turtles
+    ✓ make turtle object on server on connection 
+    ✓ update turtle object list on turtle disconnect
+    ✓ write data about turtle to json filebase
+    ✓ load data from filebase if 

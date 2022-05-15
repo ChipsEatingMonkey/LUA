@@ -5,7 +5,14 @@ const fs = require("fs");
 
 const wss = new WebS.Server({port:8081})
 
+function finishedWriting(err){
+    console.log("done writing file ")
+    // if (err){
+    //     console.log(err)
+    // }
+}
 let turtleList = [];
+
 //let world = fs.readFileSync('world.json');
 wss.on("connection", function connection(ws, req){
 
@@ -15,9 +22,28 @@ wss.on("connection", function connection(ws, req){
     if (ws.uid.startsWith("0"))  { // this means it's a turtle
         ws.fuelLevel = parseInt(parameters.query.fuelLevel); 
         console.log("its fuelLevel is: " + ws.fuelLevel);
-        // check for tutle on database / memory first
-        turtleList.push(new Turtle(ws.uid,[-364, 69, -147], ws.fuelLevel)) // could 2 websockets try 2 change this at the same time? Might crash
-        console.log(turtleList)
+        // check for tutle on database // memory first
+        fs.open("./turtle_DB/"+ws.uid+".json", function(err, fd){
+            if (fd){
+                console.log("file descriptor found: ", fd);
+                let file = fs.readFileSync("./turtle_DB/"+ws.uid+".json");
+                let turtleFromFile = JSON.parse(file);
+
+                  turtleList.push(turtleFromFile)
+            }
+            else {
+                if (err){
+                   // console.log("error : ",err)
+                    turtleList.push(new Turtle(ws.uid,[-363, 69, -147], ws.fuelLevel))
+                    json_turtle = JSON.stringify(turtleList[turtleList.length-1])
+                    fs.writeFile("./turtle_DB/"+ws.uid+".json",json_turtle, finishedWriting );
+                }
+            }
+
+            console.log(" turtleList after new connection is: ", turtleList)
+        });
+        //turtleList.push(new Turtle(ws.uid,[-363, 69, -147], ws.fuelLevel)) // could 2 websockets try 2 change this at the same time? Might crash
+        
     }
     ws.isBusy = false;
     ws.msgQueue = [];
@@ -38,15 +64,16 @@ wss.on("connection", function connection(ws, req){
         if (OPcode.startsWith("0")){
             let remoteFunctionCall = msg.slice(4);
             remoteFunctionCall = remoteFunctionCall.toString();
-            wss.broadcast(turtleList[0].uid , JSON.stringify({rfc:remoteFunctionCall}))
+            wss.broadcast(turtleList[0].uid , JSON.stringify({rfc:remoteFunctionCall,code:OPcode}))
            
-            console.log("Frontend: "+ remoteFunctionCall);
+            console.log("Frontend: "+ JSON.stringify({rfc:remoteFunctionCall,code:OPcode}));
         }
         else {
             // -364, 69, -147
             console.log(ws.uid)
-            console.log(rawData.slice(15,40))
+            //console.log(rawData.slice(15,40))
             console.log(rawData)
+            console.log(JSON.parse(msg_c))
         }
     })
     function notTurtle (turtle) {

@@ -12,12 +12,9 @@ if ws then
         local msg = ws.receive()
         local object = json.decode(msg)
         local func = loadstring(object["rfc"])
-        local res,data = func()
-        if data then
-            ws.send({res, data})
-        else
-            ws.send({res})
-        end
+        local code = json.decode(object["code"])
+        local ret,data = func()
+        ws.send(json.encode({["ret"] = ret,["data"] = data,["code"] = code}))
     end
 else
     print("no Websocket found")
