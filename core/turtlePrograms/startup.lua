@@ -12,7 +12,7 @@ if ws then
         local msg = ws.receive()
         local object = json.decode(msg)
         local func = loadstring(object["rfc"])
-        local code = json.decode(object["code"])
+        local code = object["code"]
         local ret,data = func()
         ws.send(json.encode({["ret"] = ret,["data"] = data,["code"] = code}))
     end

@@ -41,7 +41,7 @@ doubleLeftButton.onclick = doubleLeft;
 
 
 function forward(){
-    ws.send(OPcodes.FORWARD + "return turtle.forward()")
+    ws.send(JSON.stringify({"instruction": OPcodes.FORWARD, "rfc" : "return turtle.forward()"}))
 }
 function turnRight(){
     ws.send(OPcodes.TURNRIGHT + "return turtle.turnRight()")
