@@ -1,4 +1,4 @@
-const {Turtle , OPcodes} = require('../core/turtle.js');
+var {Turtle , OPcodes} = require('../core/turtle.js');
 const WebS = require("ws");
 const url = require("url");
 const fs = require("fs");
@@ -12,7 +12,7 @@ function finishedWriting(err){
     //     console.log(err)
     // }
 }
-let turtleList = [];
+var turtleList = [];
 let msgCount = 0;
 
 //let world = fs.readFileSync('world.json');
@@ -62,22 +62,20 @@ wss.on("connection", function connection(ws, req){
             ws.msgQueue.shift();
         }
 
-        if (OPcode){
+        if (OPcode){ // if true this is a Msg from the frontend
             let remoteFunctionCall = parsedMsg.rfc;
             wss.broadcast(turtleList[0].uid , JSON.stringify({rfc:remoteFunctionCall,code:OPcode}))
            
             console.log("Frontend: "+ JSON.stringify({rfc:remoteFunctionCall,code:OPcode}));
         }
-        else {
-            // -364, 69, -147
-            //console.log(ws.uid)
-            //console.log(rawData.slice(15,40))
-            msgCount += 1;
-            //console.log(parsedMsg);
-            if (msgCount % 1000 == 0){
-                console.log(msgCount)
+        if (parsedMsg.code){ // if true this is a response from a turtle
+            for (let i = 0; i < turtleList.length; i++){ 
+                if (turtleList[i].uid = ws.uid){
+                  turtleList[i].update(parsedMsg.code);
+                  console.log(turtleList[i])
                 }
             }
+        }
                 
     })
     function notTurtle (turtle) {

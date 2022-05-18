@@ -28,7 +28,7 @@ class Turtle {
       this.dirCode = 0; // 0 , 1 , 2 , 3
       this.fuelLevel = fuelLevel;
     }
-    updateTurtle(OPcode){ // takes opcode to update turtle variables 
+    update(OPcode){ // takes opcode to update turtle variables 
         switch (OPcode){
             case OPcodes.FORWARD:
                 this.forward();
@@ -48,6 +48,8 @@ class Turtle {
             case OPcodes.DOWN:
                 this.down();
                 break;
+            default:
+                console.log("Turtle: non position chaning OPCode found");
         }
     }
     
