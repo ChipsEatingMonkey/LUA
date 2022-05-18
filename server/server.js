@@ -112,5 +112,4 @@ wss.broadcast = function broadcast(clientID, msg){
             }
         }
     });
-    console.log("can't find client")
 };

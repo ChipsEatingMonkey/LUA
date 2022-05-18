@@ -44,53 +44,54 @@ function forward(){
     ws.send(JSON.stringify({"instruction": OPcodes.FORWARD, "rfc" : "return turtle.forward()"}))
 }
 function turnRight(){
-    ws.send(OPcodes.TURNRIGHT + "return turtle.turnRight()")
+    ws.send(JSON.stringify({"instruction": OPcodes.TURNRIGHT, "rfc" : "return turtle.turnRight()"}))
 }
 function turnLeft(){
-    ws.send(OPcodes.TURNLEFT + "return turtle.turnLeft()")
+    ws.send(JSON.stringify({"instruction": OPcodes.TURNLEFT, "rfc" : "return turtle.turnLeft()"}))
 }
 function back(){
-    ws.send(OPcodes.BACK + "return turtle.back()")
+    ws.send(JSON.stringify({"instruction": OPcodes.BACK, "rfc" : "return turtle.back()"}))
 }
 function up(){
-    ws.send(OPcodes.UP + "return turtle.up()" )
+    ws.send(JSON.stringify({"instruction": OPcodes.UP , "rfc" : "return turtle.up()"}))
 }
 function down(){
-    ws.send(OPcodes.DOWN + "return turtle.down()")
+    ws.send(JSON.stringify({"instruction": OPcodes.DOWN, "rfc" : "return turtle.down()"}))
 }
 function inspect(){
-    ws.send(OPcodes.INSPECT + "return turtle.inspect()")
+    ws.send(JSON.stringify({"instruction": OPcodes.INSPECT, "rfc" : "return turtle.inspect()"}))
 }
 function craft(){
-    ws.send(OPcodes.CRAFT + "return turtle.craft()")
+    ws.send(JSON.stringify({"instruction": OPcodes.CRAFT , "rfc" : "return turtle.craft()"}))
 }
 function select(){
-    ws.send(OPcodes.SELECT + "return turtle.select()")
+    ws.send(JSON.stringify({"instruction": OPcodes.SELECT, "rfc" : "return turtle.select()"}))
 }
-function getItemCount(){
-    ws.send(OPcodes.GETITEMCOUNT + "return turtle.getItemCount()")
-}
-function getItemSpace(){
-    ws.send(OPcodes.GETITEMSPACE + "return turtle.getItemSpace()")
-}
-function getItemDetail(){
-    ws.send(OPcodes.GETITEMDETAIL + "return turtle.getItemDetail()")
-}
-function equipLeft(){
-    ws.send(OPcodes.EQUIPLEFT + "return turtle.equipLeft()")
-}
+// function getItemCount(){
+//     ws.send(OPcodes.GETITEMCOUNT + "return turtle.getItemCount()")
+// }
+// function getItemSpace(){
+//     ws.send(OPcodes.GETITEMSPACE + "return turtle.getItemSpace()")
+// }
+// function getItemDetail(){
+//     ws.send(OPcodes.GETITEMDETAIL + "return turtle.getItemDetail()")
+// }
+// function equipLeft(){
+//     ws.send(OPcodes.EQUIPLEFT + "return turtle.equipLeft()")
+// }
 function dig(){
-    ws.send(OPcodes.DIG + "return turtle.dig()")
+    ws.send(JSON.stringify({"instruction": OPcodes.DIG , "rfc" : "return turtle.dig()"}))
 }
 function digUp(){
-    ws.send(OPcodes.DIGUP + "return turtle.digUp()")
+    ws.send(JSON.stringify({"instruction": OPcodes.DIGUP, "rfc" : "return turtle.digUp()"}))
+   
 }
 function digDown(){
-    ws.send(OPcodes.DIGDOWN + " return turtle.digDown()")
+    ws.send(JSON.stringify({"instruction": OPcodes.DIGDOWN, "rfc" : "return turtle.forward()"}))
 }
-function doubleLeft(){
-    ws.send(OPcodes.TURNLEFT + "return turtle.getItemDetail()")
-}
+// function doubleLeft(){
+//     ws.send(OPcodes.TURNLEFT + "return turtle.getItemDetail()")
+// }
 
 
 ws.addEventListener("message",msg=>{
