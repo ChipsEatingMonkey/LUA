@@ -7,10 +7,10 @@ const { parse } = require('path');
 const wss = new WebS.Server({port:8081})
 
 function finishedWriting(err){
-    console.log("done writing file ")
-    // if (err){
-    //     console.log(err)
-    // }
+    //console.log("done writing file ")
+    if (err){
+        console.log(err)
+    }
 }
 var turtleList = [];
 let msgCount = 0;
@@ -31,12 +31,12 @@ wss.on("connection", function connection(ws, req){
                 let file = fs.readFileSync("./turtle_DB/"+ws.uid+".json");
                 let turtleFromFile = JSON.parse(file);
                 turtleFromFile.fuelLevel = ws.fuelLevel;
-                  turtleList.push(turtleFromFile)
+                turtleList.push(new Turtle(turtleFromFile.uid,turtleFromFile.pos,turtleFromFile.fuelLevel))
             }
             else {
                 if (err){
                    // console.log("error : ",err)
-                    turtleList.push(new Turtle(ws.uid,[-363, 69, -147], ws.fuelLevel))
+                    turtleList.push(new Turtle(ws.uid,[ -364, 70, -145 ], ws.fuelLevel))
                     json_turtle = JSON.stringify(turtleList[turtleList.length-1])
                     fs.writeFile("./turtle_DB/"+ws.uid+".json",json_turtle, finishedWriting );
                 }
@@ -68,11 +68,13 @@ wss.on("connection", function connection(ws, req){
            
             console.log("Frontend: "+ JSON.stringify({rfc:remoteFunctionCall,code:OPcode}));
         }
-        if (parsedMsg.code){ // if true this is a response from a turtle
+        if (parsedMsg.code && parsedMsg.ret){ // if true this is a response from a turtle that did the instruction it recived
             for (let i = 0; i < turtleList.length; i++){ 
                 if (turtleList[i].uid = ws.uid){
                   turtleList[i].update(parsedMsg.code);
                   console.log(turtleList[i])
+                  json_turtle = JSON.stringify(turtleList[i])
+                  fs.writeFile("./turtle_DB/"+ws.uid+".json",json_turtle, finishedWriting );
                 }
             }
         }
