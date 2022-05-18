@@ -30,7 +30,7 @@ wss.on("connection", function connection(ws, req){
                 console.log("file descriptor found: ", fd);
                 let file = fs.readFileSync("./turtle_DB/"+ws.uid+".json");
                 let turtleFromFile = JSON.parse(file);
-
+                turtleFromFile.fuelLevel = ws.fuelLevel;
                   turtleList.push(turtleFromFile)
             }
             else {
